@@ -1,6 +1,6 @@
-package mvc;
+package app;
 
-import mvc.models.AddressBook;
+import app.model.AddressBook;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 

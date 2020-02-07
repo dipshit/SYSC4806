@@ -4,7 +4,7 @@
 <beans>
     <bean id="addressBookView" class="mvc.AddressBookView" init-method="init">
         <property name="title">
-            <value>mvc.models.AddressBook</value>
+            <value>app.model.AddressBook</value>
         </property>
         <property name="listener">
             <ref bean="addressBookController"></ref>
@@ -16,7 +16,7 @@
             </list>
         </property>
     </bean>
-    <bean id="addressBookController" class="mvc.AddressBookController">
+    <bean id="addressBookController" class="app.AddressBookController">
         <property name="view">
             <ref bean="addressBookView"></ref>
         </property>

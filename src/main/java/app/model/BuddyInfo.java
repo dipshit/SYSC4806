@@ -1,9 +1,8 @@
-package mvc.models;
+package app.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 public class BuddyInfo {
