@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+    <bean id="addressBookView" class="mvc.AddressBookView" init-method="init">
+        <property name="title">
+            <value>mvc.models.AddressBook</value>
+        </property>
+        <property name="listener">
+            <ref bean="addressBookController"></ref>
+        </property>
+        <property name="menus">
+            <list>
+                <ref bean="addressBookMenu"></ref>
+                <ref bean="buddyInfoMenu"></ref>
+            </list>
+        </property>
+    </bean>
+    <bean id="addressBookController" class="mvc.AddressBookController">
+        <property name="view">
+            <ref bean="addressBookView"></ref>
+        </property>
+    </bean>
+    <bean id="addressBookMenu" class="mvc.AddressBookMenu" init-method="init">
+        <property name="listener">
+            <ref bean="addressBookController"></ref>
+        </property>
+    </bean>
+    <bean id="buddyInfoMenu" class="mvc.BuddyInfoMenu" init-method="init">
+        <property name="listener">
+            <ref bean="addressBookController"></ref>
+        </property>
+    </bean>
+</beans>
