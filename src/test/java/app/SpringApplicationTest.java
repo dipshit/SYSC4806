@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -33,13 +34,27 @@ class MySpringApplicationTest {
         this.mockMvc.perform(get("/addressBook").param("id", "1"))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("AddressBook")));
+
         this.mockMvc.perform(post("/addBuddy")
                 .param("bookId", "1")
-                .param("name", "buddyname1")
+                .param("name", "buddyname2")
                 .param("phone", "613")).andExpect(status().isOk());
+
+        this.mockMvc.perform(post("/addBuddy")
+                .param("bookId", "1")
+                .param("name", "buddyname3")
+                .param("phone", "613")).andExpect(status().isOk());
+
         this.mockMvc.perform(get("/addressBook")
-                .param("id", "1")).andExpect(content().string(containsString("buddyname1")));
+                .param("id", "1"))
+                .andExpect(content().string(containsString("buddyname2")))
+                .andExpect(content().string(containsString("buddyname3")));
 
         this.mockMvc.perform(post("/removeBuddy").param("id", "2")).andExpect(status().isOk());
+
+        this.mockMvc.perform(get("/addressBook").param("id", "1"))
+                .andExpect(content().string(not(containsString("buddyname2"))))
+                .andExpect(content().string(containsString("buddyname3")));
+
     }
 }
