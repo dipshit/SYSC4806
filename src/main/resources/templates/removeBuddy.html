@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Removing a buddy</title>
+</head>
+<body>
+<h1>Remove Buddy</h1>
+<p>Friendship ended with buddy</p>
+<form action="#" th:action="@{/removeBuddy}" th:object="${buddy}" method="post">
+    <p>Id: <input type="text" th:field="*{id}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

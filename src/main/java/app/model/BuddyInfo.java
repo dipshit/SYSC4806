@@ -8,10 +8,11 @@ import javax.persistence.*;
 public class BuddyInfo {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
 
     private String address = "";
     private String name = "", phone = "";
+    private int bookId;
 
     @ManyToOne
     @JoinColumn(name = "ADDRESSBOOK_ID")
@@ -26,7 +27,7 @@ public class BuddyInfo {
         name = n;
         address = a;
         phone = p;
-
+        id = 0;
     }
 
     public String getName() {
@@ -78,11 +79,19 @@ public class BuddyInfo {
         this.addressBook = addressBook;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 }

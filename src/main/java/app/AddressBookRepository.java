@@ -6,5 +6,5 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 @RepositoryRestResource(path = "addressBook")
 public interface AddressBookRepository extends CrudRepository<AddressBook, Long> {
-    AddressBook findById(long id);
+    AddressBook findById(int id);
 }

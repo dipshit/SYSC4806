@@ -2,10 +2,10 @@ package app;
 
 import app.model.AddressBook;
 import app.model.BuddyInfo;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class BuddyInfoController {
@@ -17,23 +17,33 @@ public class BuddyInfoController {
         this.buddyrepo=buddyrepo;
     }
 
+    @GetMapping(value = "/addBuddy")
+    public String addBuddyForm(Model model) {
+        model.addAttribute("buddy", new BuddyInfo());
+        return "addBuddy";
+    }
+
     @ResponseBody
     @PostMapping(value = "/addBuddy", produces = "application/json")
-    public BuddyInfo addBuddy(@RequestParam(name = "bookId") long bookId, @RequestParam(name = "name") String name, @RequestParam(name = "phone") String phone) {
-        AddressBook a = bookrepo.findById(bookId);
-        BuddyInfo b = new BuddyInfo();
-        b.setName(name);
-        b.setPhone(phone);
-        a.addBuddy(b);
-        buddyrepo.save(b);
+    public BuddyInfo addBuddy(@ModelAttribute BuddyInfo buddy) {
+        System.out.println("buddy's bookId: " + buddy.getBookId());
+        AddressBook a = bookrepo.findById(buddy.getBookId());
+        a.addBuddy(buddy);
+        buddyrepo.save(buddy);
         bookrepo.save(a);
-        return b;
+        return buddy;
+    }
+
+    @GetMapping(value = "/removeBuddy")
+    public String removeBuddyForm(Model model) {
+        model.addAttribute("buddy", new BuddyInfo());
+        return "removeBuddy";
     }
 
     @ResponseBody
     @PostMapping(value = "/removeBuddy", produces = "application/json")
-    public AddressBook removeBuddy(@RequestParam(name = "id") long id) {
-        BuddyInfo b = buddyrepo.findById(id);
+    public AddressBook removeBuddy(@ModelAttribute BuddyInfo buddy) {
+        BuddyInfo b = buddyrepo.findById(buddy.getId());
         AddressBook a = b.getAddressBook();
         a.removeBuddy(b);
         buddyrepo.delete(b);

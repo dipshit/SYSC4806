@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adding a buddy</title>
+</head>
+<body>
+  <h1>Form</h1>
+  <form action="#" th:action="@{/addBuddy}" th:object="${buddy}" method="post">
+      <p>Address: <input type="text" th:field="*{address}" /></p>
+      <p>Name: <input type="text" th:field="*{name}" /></p>
+      <p>Phone: <input type="text" th:field="*{phone}" /></p>
+      <p>BookId: <input type="text" th:field="*{bookId}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+  </form>
+</body>
+</html>

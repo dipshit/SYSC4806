@@ -11,7 +11,7 @@ public class AddressBook {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private int id;
 
     @OneToMany(
             mappedBy = "addressBook",
@@ -20,7 +20,7 @@ public class AddressBook {
     @JsonManagedReference
     private List<BuddyInfo> buddies;
 
-    public long getId(){
+    public int getId(){
         return id;
     }
 
