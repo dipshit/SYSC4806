@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+        <title>Getting Started: Handling Form Submission</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+</head>
+<body>
+<h1>AddressBook</h1>
+
+<h1>New AddressBook</h1>
+<form action="/new" method="post" id="newAddressBookForm">
+        <label>ID</label>
+        <input type="number" name="id"/>
+        <input type="submit" name="submit" value="submit" />
+</form>
+
+<h1>Add Buddy</h1>
+<form action="/addBuddy" method="post" id="newBuddyInfo">
+        <label>AddressBook ID</label>
+        <input type="number" name="bookId"/>
+
+        <label>Name</label>
+        <input type="text" name="name" value="" />
+
+        <label>Number</label>
+        <input type="number" name="number" value="" />
+
+        <input type="submit" name="submit" value="submit"/>
+</form>
+
+<h1>Query AddressBook</h1>
+<form action="/addressBook" method="post" id="addressBook">
+        <label>AddressBook ID</label>
+        <input type="number" name="id"/>
+        <input type="submit" name="submit" value="submit"/>
+</form>
+
+<table>
+        <thead>
+        <tr>
+                <th> First Name </th>
+                <th> Number </th>
+        </tr>
+        </thead>
+        <tbody id="addressBookBody">
+        </tbody>
+</table>
+</body>
+
+<script>
+    $(document).ready(function() {
+        $("#addressBook").submit(function(e) {
+            e.preventDefault();
+
+            var values = $(this).serializeArray();
+            var id = values[0].value;
+
+            $.ajax({
+                url: "http://localhost:8080/addressBook?id="+id,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data)
+                    var buddies = data.buddies;
+                    var body = $("#addressBookBody")
+                    body.empty();
+                    for (i = 0; i < buddies.length; i++) {
+                        body.append($('<tr>')
+                            .append($('<td>').text(buddies[i].name))
+                            .append($('<td>').text(buddies[i].number))
+                        )
+                    }
+                }
+            });
+        });
+    });
+    </script>
+</html>

@@ -14,10 +14,9 @@ public class AddressBookController{
     }
 
     @GetMapping("addressBook")
-    public String addressBook(@RequestParam(name = "id") int id, Model model) {
-        AddressBook a = repo.findById(id);
-        model.addAttribute("addressBook", a);
-        return "addressBook";
+    @ResponseBody
+    public AddressBook addressBook(@RequestParam(name = "id") int id) {
+        return repo.findById(id);
     }
 
     @GetMapping(value = "/new")
